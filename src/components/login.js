@@ -1,56 +1,50 @@
-import React from "react"
+import React, { useState } from "react"
 import { navigate } from "gatsby"
 import { handleLogin, isLoggedIn } from "../services/auth"
 
-class Login extends React.Component {
-  state = {
-    username: ``,
-    password: ``,
-  }
+export default function Login(props) {
 
-  handleUpdate = event => {
-    this.setState({
-      [event.target.name]: event.target.value,
-    })
-  }
+    const [user, setUser] = useState({ username: "", password: "" });
 
-  handleSubmit = event => {
-    event.preventDefault()
-    handleLogin(this.state)
-  }
+    function handleUpdate(event) {
+        setUser({ ...user, [event.target.name]: event.target.value });
+    }
 
-  render() {
+    function handleSubmit(event) {
+        event.preventDefault();
+        handleLogin(user);
+    }
+
     if (isLoggedIn()) {
-      navigate(`/app/profile`)
+        navigate(`/app/profile`);
     }
 
     return (
-      <>
-        <h1>Log in</h1>
-        <form
-          method="post"
-          onSubmit={event => {
-            this.handleSubmit(event)
-            navigate(`/app/profile`)
-          }}
-        >
-          <label>
-            Username
-            <input type="text" name="username" onChange={this.handleUpdate} />
-          </label>
-          <label>
-            Password
+        <>
+            <h1>Log in</h1>
+            <form
+                method="post"
+                onSubmit={event => {
+                    handleSubmit(event)
+                    navigate(`/app/profile`)
+                }}
+            >
+                <label>
+                    Username
+            <input type="text" name="username" onChange={handleUpdate} />
+                </label>
+                <label>
+                    Password
             <input
-              type="password"
-              name="password"
-              onChange={this.handleUpdate}
-            />
-          </label>
-          <input type="submit" value="Log In" />
-        </form>
-      </>
+                        type="password"
+                        name="password"
+                        onChange={handleUpdate}
+                    />
+                </label>
+                <input type="submit" value="Log In" />
+            </form>
+        </>
     )
-  }
+
 }
 
-export default Login
