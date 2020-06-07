@@ -26,20 +26,14 @@ export default function Login(props) {
                 method="post"
                 onSubmit={event => {
                     handleSubmit(event)
-                    navigate(`/app/profile`)
-                }}
-            >
+                    navigate(`/app/profile`)}}>
                 <label>
                     Username
-            <input type="text" name="username" onChange={handleUpdate} />
+                    <input type="text" name="username" onChange={handleUpdate} />
                 </label>
                 <label>
                     Password
-            <input
-                        type="password"
-                        name="password"
-                        onChange={handleUpdate}
-                    />
+                    <input type="password" name="password" onChange={handleUpdate} />
                 </label>
                 <input type="submit" value="Log In" />
             </form>
